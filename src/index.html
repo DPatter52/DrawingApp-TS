@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Simple Drawing Game</title>
+    <script src="app.js"></script>
+  </head>
+  <body>
+    <div id="toolbox">
+      <label for="tool">Select Tool:</label>
+      <select id="tool">
+        <option value="brush">Brush</option>
+        <option value="rectangle">Rectangle</option>
+        <option value="circle">Circle</option>
+      </select>
+      <label for="size">Brush Size:</label>
+      <input type="range" id="size" min="1" max="50" value="10" />
+      <label for="color">Brush Color:</label>
+      <input type="color" id="color" value="#000000" />
+      <label for="reset">Clear Canvas</label>
+      <button id="resetButton">X</button>
+    </div>
+    <canvas id="canvas"></canvas>
+  </body>
+</html>

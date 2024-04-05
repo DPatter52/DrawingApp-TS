@@ -1,0 +1,25 @@
+# Node.js dependencies
+node_modules/
+
+# Transpiled output
+dist/
+build/
+
+# Environment variables
+.env
+
+# Visual Studio Code settings
+.vscode/
+
+# IntelliJ IDEA settings
+.idea/
+
+# macOS specific files
+.DS_Store
+
+# Coverage reports
+coverage/
+
+# Log files
+*.log
+*.log.*
