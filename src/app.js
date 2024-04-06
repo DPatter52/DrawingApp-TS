@@ -79,8 +79,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const x = this.startX;
       const y = this.startY;
       const radius = Math.sqrt(
-        Math.pow(e.clientX - this.startX, 2) +
-          Math.pow(e.clientY - this.startY, 2)
+        Math.pow(e.clientX - this.startX, 1.5) +
+          Math.pow(e.clientY - this.startY, 1.5)
       );
 
       this.ctx.lineWidth = this.brushSize;

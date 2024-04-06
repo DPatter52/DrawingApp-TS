@@ -9,19 +9,33 @@
     <script src="app.js"></script>
   </head>
   <body>
+    
     <div id="toolbox">
-      <label for="tool">Select Tool:</label>
-      <select id="tool">
-        <option value="brush">Brush</option>
-        <option value="rectangle">Rectangle</option>
-        <option value="circle">Circle</option>
-      </select>
-      <label for="size">Brush Size:</label>
-      <input type="range" id="size" min="1" max="50" value="10" />
-      <label for="color">Brush Color:</label>
-      <input type="color" id="color" value="#000000" />
-      <label for="reset">Clear Canvas</label>
-      <button id="resetButton">X</button>
+      <div class="title">TS.PAINT</div>
+      <span class="divider"></span>
+      <div class="tool-div">
+        <label for="tool">Select Tool:</label>
+        <select id="tool">
+          <option value="brush">Brush</option>
+          <option value="rectangle">Rectangle</option>
+          <option value="circle">Circle</option>
+        </select>
+      </div>
+      <span class="divider"></span>
+      <div class="size-div">
+        <label for="size">Brush Size:</label>
+        <input type="range" id="size" min="1" max="50" value="10" />
+      </div>
+      <span class="divider"></span>
+      <div class="color-div">
+        <label for="color">Brush Color:</label>
+        <input type="color" id="color" value="#000000" />
+      </div>
+      <span class="divider"></span>
+      <div class="clear-div">
+        <label for="reset">Clear Canvas:</label>
+        <button id="resetButton">X</button>
+      </div>
     </div>
     <canvas id="canvas"></canvas>
   </body>

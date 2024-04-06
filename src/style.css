@@ -7,3 +7,33 @@
 #canvas {
   border: 2px solid black;
 }
+
+#toolbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgb(225, 225, 225);
+}
+
+.divider {
+  flex-grow: .15;
+  border-bottom: 1px solid black;
+  margin: 15px
+}
+
+label{
+  font-size: large;
+}
+
+.title{
+  font-size: 50px;
+  padding: .2em;
+}
+
+#resetButton{
+  align-items: center;
+  font-size: medium;
+  padding: 2px;
+  background-color: rgb(255, 0, 0);
+  
+}
