@@ -58,18 +58,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     drawRectanglePreview(e) {
       if (!this.painting) return;
-      
+
       // Get the coordinates of the initial click
       const rect = this.canvas.getBoundingClientRect();
       const startX = this.startX - rect.left;
       const startY = this.startY - rect.top;
-    
+
       // Calculate the width and height based on the current mouse position
       const mouseX = e.clientX - rect.left;
       const mouseY = e.clientY - rect.top;
       const width = mouseX - startX;
       const height = mouseY - startY;
-    
+
       // Set the fill color and draw the rectangle
       this.ctx.fillStyle = this.brushColor;
       this.ctx.fillRect(startX, startY, width, height);
