@@ -16,24 +16,23 @@
 }
 
 .divider {
-  flex-grow: .15;
+  flex-grow: 0.15;
   border-bottom: 1px solid black;
-  margin: 15px
+  margin: 15px;
 }
 
-label{
+label {
   font-size: large;
 }
 
-.title{
+.title {
   font-size: 50px;
-  padding: .2em;
+  padding: 0.2em;
 }
 
-#resetButton{
+#resetButton {
   align-items: center;
   font-size: medium;
   padding: 2px;
   background-color: rgb(255, 0, 0);
-  
 }
