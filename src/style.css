@@ -5,15 +5,12 @@
   box-sizing: border-box;
 }
 
-#canvas {
-  border: 2px solid black;
-}
-
 #toolbox {
   display: flex;
   align-items: center;
   gap: 10px;
   background-color: rgb(225, 225, 225);
+  border-bottom: 1px solid black;
 }
 
 .divider {
@@ -36,4 +33,21 @@ label {
   font-size: medium;
   padding: 2px;
   background-color: rgb(255, 0, 0);
+}
+
+#color-palette {
+  display: flex;
+  font-size: 20px;
+  padding-left: 1em;
+  padding-top: 1em;
+  background-color: rgb(225, 225, 225);
+}
+
+
+.color-box {
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+  border: 1px solid black;
+  cursor: pointer;
 }

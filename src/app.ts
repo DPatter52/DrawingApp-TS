@@ -1,14 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
-  type Color = {
-    r: number;
-    g: number;
-    b: number;
-    a: number;
-  };
-
   class DrawingApp {
     private canvas: HTMLCanvasElement;
     private ctx: CanvasRenderingContext2D;
+    private colorPalette: string[] = [
+      "#ff0000",
+      "#00ff00",
+      "#0000ff",
+      "#ffff00",
+      "#ff00ff",
+      "#00ffff",
+    ];
     toolSelect: HTMLSelectElement = document.createElement(
       "select"
     ) as HTMLSelectElement;
@@ -22,8 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "button"
     ) as HTMLButtonElement;
 
-    private imageData!: ImageData;
-
     painting = false;
     selectedTool = "brush";
     brushSize!: number;
@@ -32,31 +31,23 @@ document.addEventListener("DOMContentLoaded", () => {
     startY!: number;
 
     constructor() {
-      this.initialize();
       this.canvas = document.createElement("canvas");
-      this.ctx = this.canvas.getContext("2d")!;
-      this.imageData = this.ctx.getImageData(
-        0,
-        0,
-        this.canvas.width,
-        this.canvas.height
-      );
+      this.ctx = this.canvas.getContext("2d", { willReadFrequently: true })!;
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+      document.body.appendChild(this.canvas);
+      this.renderColorPalette();
+      this.initialize();
       console.log("Contructor initialized.");
     }
 
     initialize() {
-      this.canvas = document.querySelector("canvas") as HTMLCanvasElement;
-      this.ctx = this.canvas.getContext("2d")!;
-
       this.toolSelect = document.getElementById("tool") as HTMLSelectElement;
       this.sizeInput = document.getElementById("size") as HTMLInputElement;
       this.colorInput = document.getElementById("color") as HTMLInputElement;
       this.clearInput = document.querySelector(
-        "resetButton"
+        "#resetButton"
       ) as HTMLButtonElement;
-
-      this.canvas.height = window.innerHeight;
-      this.canvas.width = window.innerWidth;
 
       this.brushSize = parseInt(this.sizeInput.value);
       this.brushColor = this.colorInput.value;
@@ -65,16 +56,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Functions
+
+    renderColorPalette() {
+      const paletteContainer = document.getElementById("color-palette")!;
+      this.colorPalette.forEach((color) => {
+        const colorBox = document.createElement("div");
+        colorBox.classList.add("color-box");
+        colorBox.style.backgroundColor = color;
+        colorBox.addEventListener("click", () => {
+          this.brushColor = color; // Set the brush color when a color swatch is clicked
+        });
+        paletteContainer.appendChild(colorBox);
+      });
+      console.log("Palette is made");
+    }
+
     clearCanvas() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     }
 
-    getMousePosition(canvas: HTMLCanvasElement, evt: MouseEvent) {
+    getMousePosition(canvas: HTMLCanvasElement, e: MouseEvent) {
       const rect = canvas.getBoundingClientRect();
       const scaleX = canvas.width / rect.width;
       const scaleY = canvas.height / rect.height;
-      const x = (evt.clientX - rect.left) * scaleX;
-      const y = (evt.clientY - rect.top) * scaleY;
+      const x = (e.clientX - rect.left) * scaleX;
+      const y = (e.clientY - rect.top) * scaleY;
 
       return { x, y };
     }
@@ -95,20 +101,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
     endPosition() {
       this.painting = false;
-      this.ctx.beginPath();
+      this.ctx.closePath();
     }
-
     draw(e: MouseEvent) {
       if (!this.painting) return;
       const pos = this.getMousePosition(this.canvas, e);
-      this.ctx.lineWidth = this.brushSize;
-      this.ctx.lineCap = "round";
-
-      this.ctx.lineTo(pos.x, pos.y);
-      this.ctx.strokeStyle = this.brushColor;
-      this.ctx.stroke();
-      this.ctx.beginPath();
-      this.ctx.moveTo(pos.x, pos.y);
+      if (this.startX === undefined || this.startY === undefined) {
+        this.ctx.beginPath();
+        this.ctx.moveTo(pos.x, pos.y);
+      } else {
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.startX, this.startY);
+        this.ctx.lineTo(pos.x, pos.y);
+        this.ctx.strokeStyle = this.brushColor;
+        this.ctx.lineWidth = this.brushSize;
+        this.ctx.lineCap = "round";
+        this.ctx.stroke();
+      }
+      this.startX = pos.x;
+      this.startY = pos.y;
     }
 
     drawRectanglePreview(e: MouseEvent) {
@@ -135,48 +146,12 @@ document.addEventListener("DOMContentLoaded", () => {
       this.ctx.fill();
     }
 
-    getColorAtPixel(x: number, y: number): Color {
-      const index = (y * this.canvas.width + x) * 4;
-      return {
-        r: this.imageData.data[index],
-        g: this.imageData.data[index + 1],
-        b: this.imageData.data[index + 2],
-        a: this.imageData.data[index + 3],
-      };
-    }
-
-    floodFill(
-      x: number,
-      y: number,
-      targetColor: Color,
-      replacementColor: Color
-    ): void {
-      if (x < 0 || x >= this.canvas.width || y < 0 || y >= this.canvas.height)
-        return;
-
-      const currentColor = this.getColorAtPixel(x, y);
-      if (
-        currentColor.r === targetColor.r &&
-        currentColor.g === targetColor.g &&
-        currentColor.b === targetColor.b &&
-        currentColor.a === targetColor.a
-      ) {
-        const index = (y * this.canvas.width + x) * 4;
-        this.imageData.data[index] = replacementColor.r;
-        this.imageData.data[index + 1] = replacementColor.g;
-        this.imageData.data[index + 2] = replacementColor.b;
-        this.imageData.data[index + 3] = replacementColor.a;
-
-        this.floodFill(x + 1, y, targetColor, replacementColor);
-        this.floodFill(x - 1, y, targetColor, replacementColor);
-        this.floodFill(x, y + 1, targetColor, replacementColor);
-        this.floodFill(x, y - 1, targetColor, replacementColor);
-      }
-      this.ctx.putImageData(this.imageData, 0, 0);
-    }
-
     // Event Listeners
-    addEventListeners(): void {
+    addEventListeners() {
+      this.toolSelect.addEventListener("change", () => {
+        this.selectedTool = this.toolSelect.value;
+        console.log("Tool changed to: " + this.selectedTool);
+      });
       this.canvas.addEventListener("mousedown", (e) => this.startPosition(e));
       this.canvas.addEventListener("mouseup", () => this.endPosition());
       this.canvas.addEventListener("mousemove", (e) => {
@@ -200,14 +175,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       this.colorInput.addEventListener("input", () => {
         this.brushColor = this.colorInput.value;
-      });
-      this.canvas.addEventListener("click", (e) => {
-        if (this.selectedTool === "fill") {
-          const pos = this.getMousePosition(this.canvas, e);
-          const targetColor = this.getColorAtPixel(pos.x, pos.y);
-          const replacementColor = { r: 255, g: 0, b: 0, a: 255 }; // Example: filling with red
-          this.floodFill(pos.x, pos.y, targetColor, replacementColor);
-        }
       });
     }
   }
