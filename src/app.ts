@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
         colorBox.classList.add("color-box");
         colorBox.style.backgroundColor = color;
         colorBox.addEventListener("click", () => {
-          this.brushColor = color; // Set the brush color when a color swatch is clicked
+          this.brushColor = color; 
         });
         paletteContainer.appendChild(colorBox);
       });
