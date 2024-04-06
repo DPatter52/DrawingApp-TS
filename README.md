@@ -1,32 +1,33 @@
 # Overview
 
-{Important! Do not say in this section that this is college assignment. Talk about what you are trying to accomplish as a software engineer to further your learning.}
+This is a small TypeScript project to help highlight some basic principles of the language. 
 
-{Provide a description of the software that you wrote to demonstrate the TypeScript language.}
+This program is a drawing app that has a few basic functions like being able to draw using a pen, rectangle, and circle tools. 
+You can also customize the size of the pen tool and the color of the various tools. When you're done drawing, you can also erase
+the canvas to start all over again!
 
-{Describe your purpose for writing this software.}
-
-{Provide a link to your YouTube demonstration. It should be a 4-5 minute demo of the software running and a walkthrough of the code. Focus should be on sharing what you learned about the language syntax.}
+Outside of programming, I'm really into art and drawing of all kinds. I also grew up using Microsoft Paint and I wanted to do
+something similar at some point in my coding career. I decided to use typescript, thinking that it would be fairly easy to get the different aspects
+of this program working that I wanted because of how modular it is, and it ended up working well with what I had in my head.
 
 [Software Demo Video](http://youtube.link.goes.here)
 
 # Development Environment
 
-{Describe the tools that you used to develop the software}
-
-{Describe the programming language that you used and any libraries.}
+- Visual Studio Code
+- JavaScript
+- TypeScript
+- Node.js v16.18.0
+- Express v4.18.3
+- ESLint 8.57.0
 
 # Useful Websites
 
-{Make a list of websites that you found helpful in this project}
-
-- [Web Site Name](http://url.link.goes.here)
-- [Web Site Name](http://url.link.goes.here)
+- [Stack Overflow](https://stackoverflow.com/)
+- [W3Schools](https://www.w3schools.com/typescript/index.php)
 
 # Future Work
 
-{Make a list of things that you need to fix, improve, and add in the future.}
-
-- Item 1
-- Item 2
+- Add an active eraser tool so you don't have to completely wipe the whole page.
+- Add a paint bucket tool
 - Item 3
