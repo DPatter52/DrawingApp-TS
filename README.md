@@ -10,7 +10,7 @@ Outside of programming, I'm really into art and drawing of all kinds. I also gre
 something similar at some point in my coding career. I decided to use typescript, thinking that it would be fairly easy to get the different aspects
 of this program working that I wanted because of how modular it is, and it ended up working well with what I had in my head.
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/NbPS4fFSq6g)
 
 # Development Environment
 
@@ -28,6 +28,6 @@ of this program working that I wanted because of how modular it is, and it ended
 
 # Future Work
 
-- Add an active eraser tool so you don't have to completely wipe the whole page.
-- Add a paint bucket tool
-- Item 3
+- Add an active eraser tool, so you don't have to completely wipe the whole page.
+- Add a paint bucket tool.
+- Make the palette UI dynamic, so you can save your own colors to it.
